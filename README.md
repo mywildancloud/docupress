@@ -20,7 +20,7 @@
    ```
 2. Go to the project directory :
   ```bash
-  cd docupress
+   cd docupress
   ```
 3. Install dependencies :
    ```bash
