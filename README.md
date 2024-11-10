@@ -16,12 +16,12 @@
 
 1. Clone this repository :
    ```bash
-   git clone https://github.com/mywildancloud/docupress.git
+   git clone https://github.com/mywildancloud/docubook.git
    ```
 2. Go to the project directory :
 
 ```bash
- cd docupress
+ cd docubook
 ```
 
 3. Install dependencies :
