@@ -14,19 +14,19 @@
 
 ## Installation
 
-1. Clone repository ini:
+1. Clone this repository :
    ```bash
    git clone https://github.com/mywildancloud/docupress.git
    ```
-2. Masuk ke direktori proyek:
+2. Go to the project directory :
   ```bash
   cd docupress
   ```
-3. Instal dependensi:
+3. Install dependencies :
    ```bash
    npm install
    ```
-4. Jalankan aplikasi:
+4. Run the application :
    ```bash
    npm run dev
    ```
