@@ -30,4 +30,4 @@
    ```bash
    npm run dev
    ```
-Akses aplikasi di http://localhost:3000.
+Access the app on => http://localhost:3000.
