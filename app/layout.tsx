@@ -4,13 +4,20 @@ import { Navbar } from "@/components/navbar";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Footer } from "@/components/footer";
+import { Settings } from "@/setting";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "AriaDocs - Template",
-  metadataBase: new URL("https://ariadocs.vercel.app/"),
+  metadataBase: new URL(Settings.github),
   description:
     "This comprehensive documentation template, crafted with Next.js and available as open-source, delivers a sleek and responsive design, tailored to meet all your project documentation requirements.",
+  title: {
+    default: Settings.title,
+    template: `%s | ${Settings.title}`,
+  },
+  icons: {
+    icon: './favicon.ico',
+  },
 };
 
 export default function RootLayout({

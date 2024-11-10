@@ -8,7 +8,7 @@ import {
 import { Logo, NavMenu } from "./navbar";
 import { Button } from "./ui/button";
 import { AlignLeftIcon } from "lucide-react";
-import { FooterButtons } from "./footer";
+// import { FooterButtons } from "./footer";
 import { DialogTitle } from "./ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import DocsMenu from "./docs-menu";
@@ -45,9 +45,9 @@ export function SheetLeftbar() {
           <div className="mx-2 px-5">
             <DocsMenu isSheet />
           </div>
-          <div className="p-6 pb-4 flex gap-2.5">
+          {/* <div className="p-6 pb-4 flex gap-2.5">
             <FooterButtons />
-          </div>
+          </div> */}
         </div>
       </SheetContent>
     </Sheet>
