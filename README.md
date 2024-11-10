@@ -19,9 +19,11 @@
    git clone https://github.com/mywildancloud/docupress.git
    ```
 2. Go to the project directory :
-  ```bash
-   cd docupress
-  ```
+
+```bash
+ cd docupress
+```
+
 3. Install dependencies :
    ```bash
    npm install
@@ -30,4 +32,4 @@
    ```bash
    npm run dev
    ```
-Access the app on => http://localhost:3000.
+   Access the app on => http://localhost:3000.
