@@ -34,12 +34,14 @@ program
 
       // Prompt user to run npm commands
       console.log(chalk.blue("\nNext steps:"));
+      console.log(`Install pnpm:`);
+      console.log(`   npm install -g pnpm`);
       console.log(`1. Navigate to your project directory:`);
       console.log(`   cd ${projectDirectory}`);
       console.log(`2. Install dependencies:`);
-      console.log(`   npm install`);
+      console.log(`   pnpm install`);
       console.log(`3. Start the development server:`);
-      console.log(`   npm run dev`);
+      console.log(`   pnpm dev`);
     } catch (err) {
       spinner.fail("Error creating project:");
       console.error(err.message);
