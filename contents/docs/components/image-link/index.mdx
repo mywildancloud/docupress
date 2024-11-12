@@ -1,9 +1,9 @@
 ---
 title: Image and Link
-description: This section provides an overview of how AriaDocs handles links and images in Markdown.
+description: This section provides an overview of how DocuBook handles links and images in Markdown.
 ---
 
-In AriaDocs, all links and images written in Markdown are automatically converted to their respective Next.js components. This allows for better optimization and performance in your application.
+In DocuBook, all links and images written in Markdown are automatically converted to their respective Next.js components. This allows for better optimization and performance in your application.
 
 ## Links
 
@@ -21,7 +21,7 @@ The above Markdown is converted to:
 
 ```jsx
 <Link href="https://www.openai.com" target="_blank" rel="noopener noreferrer">
-    Visit OpenAI
+  Visit OpenAI
 </Link>
 ```
 
@@ -41,10 +41,10 @@ The above Markdown is converted to:
 
 ```jsx
 <Image
-    src="https://via.placeholder.com/150"
-    alt="Alt text for the image"
-    width={800}
-    height={350}
+  src="https://via.placeholder.com/150"
+  alt="Alt text for the image"
+  width={800}
+  height={350}
 />
 ```
 

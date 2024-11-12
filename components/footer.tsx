@@ -1,6 +1,7 @@
 import Link from "next/link";
 // import { buttonVariants } from "./ui/button";
 import { BookOpenTextIcon } from "lucide-react";
+import { Settings } from "@/setting";
 
 export function Footer() {
   return (
@@ -12,18 +13,18 @@ export function Footer() {
             Written by{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://github.com/mywildancloud"
+              href={Settings.authorUrl}
               target="_blank"
             >
-              wildan.nrs
+              {Settings.author}
             </Link>
             . Crafted with love using{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://github.com/nisabmohd/Aria-Docs"
+              href={Settings.github}
               target="_blank"
             >
-              AriaDocs
+              {Settings.title}
             </Link>
             .
           </p>
