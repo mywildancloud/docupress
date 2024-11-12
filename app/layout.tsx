@@ -9,8 +9,7 @@ import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(Settings.github),
-  description:
-    "This comprehensive documentation template, crafted with Next.js and available as open-source, delivers a sleek and responsive design, tailored to meet all your project documentation requirements.",
+  description: Settings.description,
   title: {
     default: Settings.title,
     template: `%s | ${Settings.title}`,

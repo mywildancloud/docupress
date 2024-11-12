@@ -1,5 +1,6 @@
 export const Settings = {
     title: "DocuBook",
+    description: "This comprehensive documentation template, crafted with Next.js and available as open-source, delivers a sleek and responsive design, tailored to meet all your project documentation requirements.",
     github: "https://github.com/mywildancloud/docubook",
     author: "wildan.nrs",
     authorUrl: "https://github.com/mywildancloud",
