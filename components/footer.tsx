@@ -1,6 +1,6 @@
 import Link from "next/link";
-// import { buttonVariants } from "./ui/button";
-import { BookOpenTextIcon } from "lucide-react";
+import { buttonVariants } from "./ui/button";
+import { BookOpenTextIcon, TriangleIcon, CoffeeIcon } from "lucide-react";
 import { Settings } from "@/setting";
 
 export function Footer() {
@@ -24,37 +24,39 @@ export function Footer() {
               href={Settings.github}
               target="_blank"
             >
-              {Settings.title}
+              DocuBook
             </Link>
             .
           </p>
         </div>
 
-        {/* <div className="gap-4 items-center hidden md:flex">
+        <div className="gap-4 items-center hidden md:flex">
           <FooterButtons />
-        </div> */}
+        </div>
       </div>
     </footer>
   );
 }
 
-// export function FooterButtons() {
-//   return (
-//     <>
-//       <Link
-//         href="https://vercel.com/templates/next.js/documentation-template"
-//         className={buttonVariants({ variant: "outline", size: "sm" })}
-//       >
-//         <TriangleIcon className="h-[0.8rem] w-4 mr-2 text-primary fill-current" />
-//         Deploy
-//       </Link>
-//       <Link
-//         href="https://github.com/sponsors/nisabmohd"
-//         className={buttonVariants({ variant: "outline", size: "sm" })}
-//       >
-//         <HeartIcon className="h-4 w-4 mr-2 text-red-600 fill-current" />
-//         Sponsor
-//       </Link>
-//     </>
-//   );
-// }
+export function FooterButtons() {
+  return (
+    <>
+      <Link
+        href="https://vercel.com/import/project?template=https://github.com/mywildancloud/docubook"
+        target="_blank"
+        className={buttonVariants({ variant: "outline", size: "sm" })}
+      >
+        <TriangleIcon className="h-[0.8rem] w-4 mr-2 text-primary fill-current" />
+        Deploy
+      </Link>
+      <Link
+        href="https://trakteer.id/wildan.nrs/tip?quantity=5"
+        target="_blank"
+        className={buttonVariants({ variant: "outline", size: "sm" })}
+      >
+        <CoffeeIcon className="h-4 w-4 mr-2 text-red-500" />
+        Sponsor
+      </Link>
+    </>
+  );
+}
