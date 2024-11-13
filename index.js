@@ -7,7 +7,7 @@ import ora from "ora";
 import chalk from "chalk";
 
 program
-  .version("1.0.0")
+  .version("1.0.1")
   .description("CLI to create a new Docubook project")
   .argument(
     "<project-directory>",
