@@ -1,0 +1,52 @@
+name: Deploy to Avatar Server
+
+on:
+  push:
+    branches:
+      - main # Menjalankan workflow saat ada push ke branch `main`
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "22" # Sesuaikan dengan versi Node.js yang dibutuhkan aplikasi
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Build the application
+      - name: Build the application
+        run: npm run build
+
+      # Step 5: Deploy to Avatar Server
+      - name: Deploy to Server Avatar
+        env:
+          HOST: ${{ secrets.194.127.192.224 }} # IP atau hostname server Avatar
+          USER: ${{ secrets.vdhpSVRnwywFqLH6 }} # Username untuk login ke server Avatar
+          KEY: ${{ secrets.Z5pSAQyojT1DGmRr }} # Private key untuk akses SSH ke server Avatar
+        run: |
+          # Simpan private key di file sementara
+          echo "$KEY" > private_key.pem
+          chmod 600 private_key.pem
+
+          # Koneksi ke server Avatar dan jalankan perintah deploy
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << 'EOF'
+            cd /home/username/docubook  # Ganti sesuai path direktori di server Avatar
+            git pull origin main        # Ambil perubahan terbaru dari repository
+            npm install                 # Install ulang dependensi jika ada perubahan
+            npm run build               # Build ulang aplikasi
+            pm2 restart docubook        # Restart aplikasi dengan pm2
+          EOF
+
+          # Hapus file private key untuk keamanan
+          rm private_key.pem
