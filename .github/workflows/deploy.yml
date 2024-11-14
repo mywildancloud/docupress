@@ -31,9 +31,9 @@ jobs:
       # Step 5: Deploy to Avatar Server
       - name: Deploy to Server Avatar
         env:
-          HOST: ${{ secrets.HOST }} # IP atau hostname server Avatar
-          USER: ${{ secrets.USERNAME }} # Username untuk login ke server Avatar
-          KEY: ${{ secrets.KEY }} # Private key untuk akses SSH ke server Avatar
+          HOST: ${{ secrets.194.127.192.224 }} # IP atau hostname server Avatar
+          USER: ${{ secrets.VRnh5i4zncIFh5dD }} # Username untuk login ke server Avatar
+          KEY: ${{ secrets.Q6YixGoGDWISaXER }} # Private key untuk akses SSH ke server Avatar
         run: |
           # Simpan private key di file sementara
           echo "$KEY" > private_key.pem
@@ -41,7 +41,7 @@ jobs:
 
           # Koneksi ke server Avatar dan jalankan perintah deploy
           ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << 'EOF'
-            cd /home/username/docubook  # Ganti sesuai path direktori di server Avatar
+            cd /home/Q6YixGoGDWISaXER/DocuBook  # Ganti sesuai path direktori di server Avatar
             git pull origin main        # Ambil perubahan terbaru dari repository
             npm install                 # Install ulang dependensi jika ada perubahan
             npm run build               # Build ulang aplikasi
