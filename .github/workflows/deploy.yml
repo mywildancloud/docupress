@@ -16,7 +16,7 @@ jobs:
       - name: Setup SSH Key and Deploy
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_USER: "wnnroot"
+          SSH_USER: "VRnh5i4zncIFh5dD"
           SSH_HOST: "194.127.192.224"
           SSH_PORT: "22"
         run: |
