@@ -3,7 +3,7 @@ name: Deploy to Server
 on:
   push:
     branches:
-      - main  # Jalankan hanya ketika ada push di branch 'main'
+      - main
 
 jobs:
   deploy:
@@ -16,37 +16,37 @@ jobs:
       - name: Setup SSH Key and Deploy
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_USER: "VRnh5i4zncIFh5dD"
-          SSH_HOST: "194.127.192.224"  # Ganti dengan IP atau hostname server Anda
-          SSH_PORT: "22"  # Ganti port jika diperlukan
+          SSH_USER: "wnnroot"
+          SSH_HOST: "194.127.192.224"
+          SSH_PORT: "22"
         run: |
-          # Buat file sementara untuk kunci privat
           TEMP_KEY_FILE=$(mktemp)
-
-          # Simpan private key ke file sementara dan atur izin akses
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' > "$TEMP_KEY_FILE"
           chmod 600 "$TEMP_KEY_FILE"
 
-          # Cek apakah file kunci privat berhasil dibuat
           if [[ ! -f "$TEMP_KEY_FILE" ]]; then
               echo "Error: Gagal membuat file kunci privat sementara."
               exit 1
           fi
 
-          # Jalankan perintah SSH dengan opsi tambahan
+          # Validasi format kunci privat
+          openssl rsa -in "$TEMP_KEY_FILE" -check -noout
+          if [[ $? -ne 0 ]]; then
+              echo "Error: Format kunci SSH tidak valid."
+              rm -f "$TEMP_KEY_FILE"
+              exit 1
+          fi
+
           ssh -i "$TEMP_KEY_FILE" -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" << 'EOF'
             echo "Koneksi SSH berhasil!"
             # Tambahkan perintah deployment di sini
           EOF
 
-          # Tangani error dari perintah SSH
           if [[ $? -ne 0 ]]; then
               echo "Error: Gagal terhubung ke server melalui SSH."
-              # Hapus file kunci privat sementara sebelum keluar
               rm -f "$TEMP_KEY_FILE"
               exit 255
           fi
 
-          # Hapus file kunci privat sementara jika berhasil
           rm -f "$TEMP_KEY_FILE"
           echo "Deployment berhasil diselesaikan."
