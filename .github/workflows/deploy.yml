@@ -41,7 +41,7 @@ jobs:
 
           # Koneksi ke server Avatar dan jalankan perintah deploy
           ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << 'EOF'
-            cd /home/Q6YixGoGDWISaXER/DocuBook  # Ganti sesuai path direktori di server Avatar
+            cd /home/VRnh5i4zncIFh5dD/DocuBook/public_html/  # Ganti sesuai path direktori di server Avatar
             git pull origin main        # Ambil perubahan terbaru dari repository
             npm install                 # Install ulang dependensi jika ada perubahan
             npm run build               # Build ulang aplikasi
