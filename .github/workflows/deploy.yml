@@ -1,52 +1,45 @@
-name: Deploy to Avatar Server
+name: Deploy to Server
 
 on:
   push:
     branches:
-      - main # Menjalankan workflow saat ada push ke branch `main`
+      - main  # Jalankan hanya ketika ada push di branch 'main'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v2
 
-      # Step 2: Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "20.18.0" # Sesuaikan dengan versi Node.js yang dibutuhkan aplikasi
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Build the application
-      - name: Build the application
-        run: npm run build
-
-      # Step 5: Deploy to Avatar Server
-      - name: Deploy to Server Avatar
+      - name: Setup SSH Key
         env:
-          HOST: ${{ secrets.SERVER_HOST }} # Nama secret yang valid untuk IP/hostname server
-          USER: ${{ secrets.SERVER_USER }} # Nama secret yang valid untuk username server
-          KEY: ${{ secrets.SERVER_SSH_KEY }} # Nama secret yang valid untuk private key SSH
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_USER: "VRnh5i4zncIFh5dD"
+          SSH_HOST: "194.127.192.224"
+          SSH_PORT: "22"  # Ubah port jika diperlukan
         run: |
-          # Simpan private key di file sementara
-          echo "$KEY" > private_key.pem
-          chmod 600 private_key.pem
+          # Skrip deployment
+          TEMP_KEY_FILE=$(mktemp)
+          echo "$SSH_PRIVATE_KEY" > "$TEMP_KEY_FILE"
+          chmod 600 "$TEMP_KEY_FILE"
 
-          # Koneksi ke server Avatar dan jalankan perintah deploy
-          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << 'EOF'
-            cd /home/VRnh5i4zncIFh5dD/DocuBook/public_html/  # Ganti sesuai path direktori di server Avatar
-            git pull origin main        # Ambil perubahan terbaru dari repository
-            npm install                 # Install ulang dependensi jika ada perubahan
-            npm run build               # Build ulang aplikasi
-            pm2 restart docubook        # Restart aplikasi dengan pm2
+          if [[ ! -f "$TEMP_KEY_FILE" ]]; then
+              echo "Error: Gagal membuat file kunci privat sementara."
+              exit 1
+          fi
+
+          ssh -i "$TEMP_KEY_FILE" -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" << 'EOF'
+            echo "Koneksi SSH berhasil!"
+            # Tambahkan perintah deployment di sini
           EOF
 
-          # Hapus file private key untuk keamanan
-          rm private_key.pem
+          if [[ $? -ne 0 ]]; then
+              echo "Error: Gagal terhubung ke server melalui SSH."
+              rm -f "$TEMP_KEY_FILE"
+              exit 255
+          fi
+
+          rm -f "$TEMP_KEY_FILE"
+          echo "Deployment berhasil diselesaikan."
