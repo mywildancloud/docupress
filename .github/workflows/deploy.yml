@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "22" # Sesuaikan dengan versi Node.js yang dibutuhkan aplikasi
+          node-version: "20.18.0" # Sesuaikan dengan versi Node.js yang dibutuhkan aplikasi
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -31,9 +31,9 @@ jobs:
       # Step 5: Deploy to Avatar Server
       - name: Deploy to Server Avatar
         env:
-          HOST: ${{ secrets.194.127.192.224 }} # IP atau hostname server Avatar
-          USER: ${{ secrets.vdhpSVRnwywFqLH6 }} # Username untuk login ke server Avatar
-          KEY: ${{ secrets.Z5pSAQyojT1DGmRr }} # Private key untuk akses SSH ke server Avatar
+          HOST: ${{ secrets.HOST }} # IP atau hostname server Avatar
+          USER: ${{ secrets.USERNAME }} # Username untuk login ke server Avatar
+          KEY: ${{ secrets.KEY }} # Private key untuk akses SSH ke server Avatar
         run: |
           # Simpan private key di file sementara
           echo "$KEY" > private_key.pem
