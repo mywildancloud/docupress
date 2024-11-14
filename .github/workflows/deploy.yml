@@ -31,9 +31,9 @@ jobs:
       # Step 5: Deploy to Avatar Server
       - name: Deploy to Server Avatar
         env:
-          HOST: ${{ secrets.SERVER_194.127.192.224 }} # IP atau hostname server Avatar yang sudah diubah menjadi nama yang valid
-          USER: ${{ secrets.SERVER_VRnh5i4zncIFh5dD }} # Username untuk login ke server Avatar
-          KEY: ${{ secrets.SERVER_SSH_Q6YixGoGDWISaXER }} # Private key untuk akses SSH ke server Avatar
+          HOST: ${{ secrets.SERVER_HOST }} # Nama secret yang valid untuk IP/hostname server
+          USER: ${{ secrets.SERVER_USER }} # Nama secret yang valid untuk username server
+          KEY: ${{ secrets.SERVER_SSH_KEY }} # Nama secret yang valid untuk private key SSH
         run: |
           # Simpan private key di file sementara
           echo "$KEY" > private_key.pem
