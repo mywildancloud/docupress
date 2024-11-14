@@ -5,9 +5,11 @@ import degit from "degit";
 import path from "path";
 import ora from "ora";
 import chalk from "chalk";
+import inquirer from "inquirer";
+import { execSync } from "child_process";
 
 program
-  .version("1.0.1")
+  .version("1.0.2")
   .description("CLI to create a new Docubook project")
   .argument(
     "<project-directory>",
@@ -23,7 +25,7 @@ program
       `Creating a new Docubook project in ${projectPath} from the main branch...`
     );
 
-    // Create spinner
+    // Spinner untuk cloning project
     const spinner = ora(`Cloning ${chalk.magenta("main")}...`).start();
 
     try {
@@ -32,16 +34,31 @@ program
         `Docubook project successfully created in ${projectPath}!`
       );
 
-      // Prompt user to run npm commands
+      // Pilih paket manager
+      const { packageManager } = await inquirer.prompt([
+        {
+          type: "list",
+          name: "packageManager",
+          message: "Choose your package manager:",
+          choices: ["npm", "pnpm", "brew"],
+        },
+      ]);
+
       console.log(chalk.blue("\nNext steps:"));
-      console.log(`Install pnpm:`);
-      console.log(`   npm install -g pnpm`);
       console.log(`1. Navigate to your project directory:`);
       console.log(`   cd ${projectDirectory}`);
-      console.log(`2. Install dependencies:`);
-      console.log(`   pnpm install`);
-      console.log(`3. Start the development server:`);
-      console.log(`   pnpm dev`);
+      
+      // Command install dependencies
+      if (packageManager === "npm" || packageManager === "pnpm") {
+        console.log(`2. Install dependencies:`);
+        console.log(`   ${packageManager} install`);
+        console.log(`3. Start the development server:`);
+        console.log(`   ${packageManager} run dev`);
+      } else if (packageManager === "brew") {
+        console.log(`2. Install dependencies with brew:`);
+        console.log(`   brew install ${projectDirectory}`);
+      }
+
     } catch (err) {
       spinner.fail("Error creating project:");
       console.error(err.message);
