@@ -6,10 +6,9 @@ import path from "path";
 import ora from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
-import { execSync } from "child_process";
 
 program
-  .version("1.0.2")
+  .version("1.0.3")
   .description("CLI to create a new Docubook project")
   .argument(
     "<project-directory>",
@@ -34,13 +33,13 @@ program
         `Docubook project successfully created in ${projectPath}!`
       );
 
-      // Pilih paket manager
+      // Pilih paket manager antara npm atau pnpm
       const { packageManager } = await inquirer.prompt([
         {
           type: "list",
           name: "packageManager",
           message: "Choose your package manager:",
-          choices: ["npm", "pnpm", "brew"],
+          choices: ["npm", "pnpm"],
         },
       ]);
 
@@ -49,16 +48,11 @@ program
       console.log(`   cd ${projectDirectory}`);
       
       // Command install dependencies
-      if (packageManager === "npm" || packageManager === "pnpm") {
-        console.log(`2. Install dependencies:`);
-        console.log(`   ${packageManager} install`);
-        console.log(`3. Start the development server:`);
-        console.log(`   ${packageManager} run dev`);
-      } else if (packageManager === "brew") {
-        console.log(`2. Install dependencies with brew:`);
-        console.log(`   brew install ${projectDirectory}`);
-      }
-
+      console.log(`2. Install dependencies:`);
+      console.log(`   ${packageManager} install`);
+      console.log(`3. Start the development server:`);
+      console.log(`   ${packageManager} run dev`);
+      
     } catch (err) {
       spinner.fail("Error creating project:");
       console.error(err.message);
