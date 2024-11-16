@@ -9,7 +9,7 @@ import inquirer from "inquirer";
 import { execSync } from "child_process";
 
 program
-  .version("1.0.4")
+  .version("1.0.5")
   .description("CLI to create a new Docubook project")
   .argument(
     "<project-directory>",
