@@ -18,6 +18,7 @@ import { Stepper, StepperItem } from "@/components/markdown/stepper";
 import Image from "@/components/markdown/image";
 import Link from "@/components/markdown/link";
 import Outlet from "@/components/markdown/outlet";
+import Youtube from "@/components/markdown/youtube";
 
 // add custom components
 const components = {
@@ -32,6 +33,7 @@ const components = {
   img: Image,
   a: Link,
   Outlet,
+  Youtube,
 };
 
 // can be used for other pages like blogs, Guides etc
@@ -214,3 +216,61 @@ export async function getBlogForSlug(slug: string) {
     return undefined;
   }
 }
+
+// for docs edit on github
+// export async function getStaticProps({ params }: { params: { slug: string[] } }) {
+//   // Gabungkan slug menjadi path relatif
+//   const slugPath = params.slug ? params.slug.join("/") : "";
+
+//   // Cek apakah ini file langsung atau berada di dalam folder
+//   const filePath = path.join(
+//     process.cwd(),
+//     "contents",
+//     "docs",
+//     slugPath.endsWith(".mdx") ? slugPath : `${slugPath}/index.mdx`
+//   );
+
+//   if (!fs.existsSync(filePath)) {
+//     return { notFound: true }; // 404 jika file tidak ditemukan
+//   }
+
+//   Baca isi file
+//   const fileContent = fs.readFileSync(filePath, "utf-8");
+//   const { data: meta } = matter(fileContent);
+
+//   return {
+//     props: {
+//       meta: { ...meta, filePath: `${slugPath}/index.mdx`.replace(/\/\//g, "/") },
+//     },
+//   };
+// }
+
+// export async function getStaticPaths() {
+//   const docsDir = path.join(process.cwd(), "contents", "docs");
+
+//   // Ambil semua file dan folder di dalam direktori
+//   const filesAndDirs = fs.readdirSync(docsDir);
+
+//   // Filter hanya file .mdx dan folder
+//   const paths = filesAndDirs.map((entry) => {
+//     const fullPath = path.join(docsDir, entry);
+//     const isDirectory = fs.statSync(fullPath).isDirectory();
+
+//     // Jika folder, tambahkan jalur slug ke index.mdx
+//     if (isDirectory) {
+//       return { params: { slug: [entry] } };
+//     }
+
+//     // Jika file langsung
+//     if (entry.endsWith(".mdx")) {
+//       return { params: { slug: [entry.replace(/\.mdx$/, "")] } };
+//     }
+
+//     return null;
+//   });
+
+//   return {
+//     paths: paths.filter(Boolean), // Hapus nilai null
+//     fallback: false, // atau true jika mendukung fallback dinamis
+//   };
+// }
